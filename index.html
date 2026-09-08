@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DayRecall — Privacy-First Activity Tracker</title>
-  <meta name="description" content="DayRecall is a local-first, privacy-preserving Windows activity tracker with AI-powered daily digests. No cloud, no telemetry.">
+  <meta name="description"
+    content="DayRecall is a local-first, privacy-preserving Windows activity tracker with AI-powered daily digests. No cloud, no telemetry.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --bg: #0b0d12;
@@ -22,8 +25,16 @@
       --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
@@ -32,187 +43,495 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
     /* Navbar */
     .navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
       backdrop-filter: blur(14px) saturate(140%);
       background: rgba(11, 13, 18, 0.72);
       border-bottom: 1px solid var(--border);
     }
+
     .nav-inner {
-      max-width: 1200px; margin: 0 auto; padding: 18px 24px;
-      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; }
-    .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      align-items: center;
+    }
+
     .nav-links a {
-      color: var(--fg-muted); font-weight: 500; font-size: 0.95rem;
+      color: var(--fg-muted);
+      font-weight: 500;
+      font-size: 0.95rem;
       transition: color 0.2s ease;
     }
-    .nav-links a:hover { color: var(--fg); }
+
+    .nav-links a:hover {
+      color: var(--fg);
+    }
+
     .nav-cta {
-      padding: 10px 18px; border-radius: 10px; font-weight: 600; font-size: 0.9rem;
-      background: var(--accent); color: white;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: var(--accent);
+      color: white;
       box-shadow: 0 8px 24px var(--accent-glow);
       transition: transform 0.15s ease, box-shadow 0.2s ease;
     }
-    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 12px 30px var(--accent-glow); }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px var(--accent-glow);
+    }
 
     /* Hero */
     .hero {
-      padding: 180px 0 100px; text-align: center; position: relative;
-      background: radial-gradient(1200px 600px at 50% -10%, rgba(91,141,239,0.12), transparent 60%),
-                  radial-gradient(800px 400px at 80% 20%, rgba(91,141,239,0.06), transparent 60%);
+      padding: 180px 0 100px;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(1200px 600px at 50% -10%, rgba(91, 141, 239, 0.12), transparent 60%),
+        radial-gradient(800px 400px at 80% 20%, rgba(91, 141, 239, 0.06), transparent 60%);
     }
+
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
-      background: rgba(91,141,239,0.12); color: var(--accent); border: 1px solid rgba(91,141,239,0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(91, 141, 239, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(91, 141, 239, 0.25);
       margin-bottom: 24px;
     }
+
     .hero-badge::before {
-      content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
       box-shadow: 0 0 10px var(--accent);
     }
+
     .hero h1 {
-      font-size: clamp(2.8rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
       margin-bottom: 20px;
     }
-    .hero h1 span { color: var(--accent); }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
     .hero p {
-      font-size: 1.15rem; color: var(--fg-muted); max-width: 640px; margin: 0 auto 32px;
-      font-weight: 400; line-height: 1.6;
+      font-size: 1.15rem;
+      color: var(--fg-muted);
+      max-width: 640px;
+      margin: 0 auto 32px;
+      font-weight: 400;
+      line-height: 1.6;
     }
-    .hero-actions { display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+    .hero-actions {
+      display: inline-flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 26px; border-radius: 12px; font-weight: 600; font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 26px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
       transition: transform 0.15s ease, box-shadow 0.2s ease;
-      border: none; cursor: pointer;
+      border: none;
+      cursor: pointer;
     }
+
     .btn-primary {
-      background: var(--accent); color: white;
+      background: var(--accent);
+      color: white;
       box-shadow: 0 12px 30px var(--accent-glow);
     }
-    .btn-primary:hover { transform: translateY(-1px); background: var(--accent-hover); }
-    .btn-secondary {
-      background: rgba(255,255,255,0.04); color: var(--fg); border: 1px solid var(--border);
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: var(--accent-hover);
     }
-    .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--fg);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
 
     /* Stats */
-    .stats { padding: 40px 0 80px; }
-    .stats-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
-      max-width: 900px; margin: 0 auto;
+    .stats {
+      padding: 40px 0 80px;
     }
-    .stat { text-align: center; }
-    .stat-value { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
-    .stat-label { font-size: 0.85rem; color: var(--fg-muted); margin-top: 4px; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--fg-muted);
+      margin-top: 4px;
+    }
 
     /* Sections */
-    section { padding: 80px 0; }
-    .section-header { text-align: center; margin-bottom: 60px; }
+    section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
     .section-tag {
-      display: inline-block; padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
-      background: rgba(91,141,239,0.1); color: var(--accent); border: 1px solid rgba(91,141,239,0.2);
-      margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(91, 141, 239, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(91, 141, 239, 0.2);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
+
     .section-header h2 {
-      font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
     }
-    .section-header p { color: var(--fg-muted); max-width: 560px; margin: 0 auto; font-size: 1.05rem; }
+
+    .section-header p {
+      color: var(--fg-muted);
+      max-width: 560px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
 
     /* Features */
     .features-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
+
     .feature-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
-      padding: 28px; transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .feature-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
     .feature-icon {
-      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
-      background: rgba(91,141,239,0.12); color: var(--accent); font-size: 1.2rem; margin-bottom: 16px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(91, 141, 239, 0.12);
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 16px;
     }
-    .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-    .feature-card p { color: var(--fg-muted); font-size: 0.95rem; line-height: 1.6; }
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--fg-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
 
     /* Detailed feature blocks */
     .feature-block {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
       margin-bottom: 100px;
     }
-    .feature-block:last-child { margin-bottom: 0; }
-    .feature-block.reverse { direction: rtl; }
-    .feature-block.reverse > * { direction: ltr; }
-    .feature-text h3 { font-size: 2rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
-    .feature-text p { color: var(--fg-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 16px; }
-    .feature-list { list-style: none; display: grid; gap: 10px; }
-    .feature-list li { display: flex; align-items: flex-start; gap: 10px; color: var(--fg-muted); font-size: 0.95rem; }
-    .feature-list li::before {
-      content: "✓"; color: var(--accent); font-weight: 700; margin-top: 1px;
+
+    .feature-block:last-child {
+      margin-bottom: 0;
     }
+
+    .feature-block.reverse {
+      direction: rtl;
+    }
+
+    .feature-block.reverse>* {
+      direction: ltr;
+    }
+
+    .feature-text h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-text p {
+      color: var(--fg-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--fg-muted);
+      font-size: 0.95rem;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
     .feature-visual {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
-      padding: 32px; box-shadow: var(--shadow);
-      display: flex; align-items: center; justify-content: center; min-height: 280px;
-      color: var(--fg-muted); font-size: 0.9rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      color: var(--fg-muted);
+      font-size: 0.9rem;
     }
 
     /* Privacy */
     .privacy-section {
-      background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
+
     .privacy-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
     }
+
     .privacy-item {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
     }
-    .privacy-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
-    .privacy-item p { color: var(--fg-muted); font-size: 0.9rem; }
+
+    .privacy-item h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .privacy-item p {
+      color: var(--fg-muted);
+      font-size: 0.9rem;
+    }
 
     /* Tech stack */
-    .tech-stack { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 40px; }
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
     .tech-pill {
-      padding: 8px 16px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
-      background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--fg-muted);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--fg-muted);
     }
 
     /* CTA */
-    .cta-section { text-align: center; padding: 100px 0; }
-    .cta-box {
-      background: linear-gradient(160deg, rgba(91,141,239,0.15), rgba(91,141,239,0.04));
-      border: 1px solid rgba(91,141,239,0.25); border-radius: 24px; padding: 60px 24px;
-      max-width: 800px; margin: 0 auto;
+    .cta-section {
+      text-align: center;
+      padding: 100px 0;
     }
-    .cta-box h2 { font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
-    .cta-box p { color: var(--fg-muted); font-size: 1.1rem; margin-bottom: 28px; }
+
+    .cta-box {
+      background: linear-gradient(160deg, rgba(91, 141, 239, 0.15), rgba(91, 141, 239, 0.04));
+      border: 1px solid rgba(91, 141, 239, 0.25);
+      border-radius: 24px;
+      padding: 60px 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-box p {
+      color: var(--fg-muted);
+      font-size: 1.1rem;
+      margin-bottom: 28px;
+    }
 
     /* Footer */
-    .footer { padding: 60px 0 40px; border-top: 1px solid var(--border); text-align: center; }
-    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-    .footer-links { display: flex; gap: 24px; list-style: none; }
-    .footer-links a { color: var(--fg-muted); font-size: 0.9rem; font-weight: 500; }
-    .footer-links a:hover { color: var(--fg); }
-    .footer-copy { color: var(--fg-muted); font-size: 0.85rem; }
+    .footer {
+      padding: 60px 0 40px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--fg-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .footer-links a:hover {
+      color: var(--fg);
+    }
+
+    .footer-copy {
+      color: var(--fg-muted);
+      font-size: 0.85rem;
+    }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .feature-block, .feature-block.reverse { grid-template-columns: 1fr; gap: 32px; direction: ltr; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .hero { padding: 140px 0 60px; }
+      .nav-links {
+        display: none;
+      }
+
+      .feature-block,
+      .feature-block.reverse {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        direction: ltr;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 140px 0 60px;
+      }
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar">
     <div class="nav-inner">
@@ -232,10 +551,12 @@
     <div class="container">
       <div class="hero-badge">Local-first • Privacy-first • Open source</div>
       <h1>Know exactly what you<br>worked on <span>every day</span></h1>
-      <p>DayRecall is a Windows activity tracker that logs your active apps and browser tabs, then generates AI-powered daily digests — all processed locally on your machine.</p>
+      <p>DayRecall is a Windows activity tracker that logs your active apps and browser tabs, then generates AI-powered
+        daily digests — all processed locally on your machine.</p>
       <div class="hero-actions">
-        <a href="https://drive.google.com/uc?export=download&id=1_URQvvFcEQ1-XFhw_FMfOyDrtYDuoazF" class="btn btn-primary">Download for Windows</a>
-        <a href="https://github.com/sujeet-kumar-shah/dayrecall" class="btn btn-secondary">View on GitHub</a>
+        <a href="https://github.com/sujeet-kumar-shah/dayrecall-site/releases/download/v1.0.0/DayRecall.msi"
+          class="btn btn-primary">Download for Windows</a>
+        <!-- <a href="https://github.com/sujeet-kumar-shah/dayrecall" class="btn btn-secondary">View on GitHub</a> -->
       </div>
     </div>
   </header>
@@ -264,19 +585,22 @@
       <div class="section-header">
         <div class="section-tag">Features</div>
         <h2>Everything you need to understand your day</h2>
-        <p>From passive tracking to AI-generated insights, DayRecall gives you full visibility into how you spend your time.</p>
+        <p>From passive tracking to AI-generated insights, DayRecall gives you full visibility into how you spend your
+          time.</p>
       </div>
 
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">🪟</div>
           <h3>Active Window Tracking</h3>
-          <p>Logs the foreground application and window title every 2 seconds with smart idle detection so you only get real work time.</p>
+          <p>Logs the foreground application and window title every 2 seconds with smart idle detection so you only get
+            real work time.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🧠</div>
           <h3>AI Daily Digest</h3>
-          <p>Summarizes your day into top apps, domains visited, and article takeaways — powered by local LLMs (Ollama) or OpenAI.</p>
+          <p>Summarizes your day into top apps, domains visited, and article takeaways — powered by local LLMs (Ollama)
+            or OpenAI.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🌐</div>
@@ -286,12 +610,14 @@
         <div class="feature-card">
           <div class="feature-icon">📄</div>
           <h3>Article Summarization</h3>
-          <p>Automatically fetches and summarizes long-form articles via SmartReader every 15 minutes so you can revisit key ideas.</p>
+          <p>Automatically fetches and summarizes long-form articles via SmartReader every 15 minutes so you can revisit
+            key ideas.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">💬</div>
           <h3>AI Chat</h3>
-          <p>Ask natural-language questions about your day — "What was I working on at 10:42?" — and get instant answers.</p>
+          <p>Ask natural-language questions about your day — "What was I working on at 10:42?" — and get instant
+            answers.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🔍</div>
@@ -301,7 +627,8 @@
         <div class="feature-card">
           <div class="feature-icon">📊</div>
           <h3>Dashboard & Analytics</h3>
-          <p>Visual breakdown of time spent across apps and domains with live-updating charts and per-project aggregates.</p>
+          <p>Visual breakdown of time spent across apps and domains with live-updating charts and per-project
+            aggregates.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">⏱️</div>
@@ -347,7 +674,8 @@
       <div class="feature-block reverse">
         <div class="feature-text">
           <h3>2. Track passively</h3>
-          <p>DayRecall silently records your active window and browser activity in the background. Enable the Chrome extension for deeper web tracking.</p>
+          <p>DayRecall silently records your active window and browser activity in the background. Enable the Chrome
+            extension for deeper web tracking.</p>
           <ul class="feature-list">
             <li>Active window + title logging</li>
             <li>Browser URL and tab tracking</li>
@@ -366,7 +694,8 @@
       <div class="feature-block">
         <div class="feature-text">
           <h3>3. Review &amp; ask AI</h3>
-          <p>Open the dashboard to see charts, timelines, and daily digests. Chat with your data to uncover productivity patterns.</p>
+          <p>Open the dashboard to see charts, timelines, and daily digests. Chat with your data to uncover productivity
+            patterns.</p>
           <ul class="feature-list">
             <li>AI daily summaries</li>
             <li>Natural-language Q&amp;A about your day</li>
@@ -439,7 +768,8 @@
         <h2>Ready to take control of your time?</h2>
         <p>Download DayRecall for Windows, or explore the source on GitHub. No account, no cloud, no hassle.</p>
         <div class="hero-actions">
-          <a href="https://github.com/sujeet-kumar-shah/dayrecall/releases/latest" class="btn btn-primary">Download Windows App</a>
+          <a href="https://github.com/sujeet-kumar-shah/dayrecall/releases/latest" class="btn btn-primary">Download
+            Windows App</a>
           <a href="https://github.com/sujeet-kumar-shah/dayrecall" class="btn btn-secondary">Star on GitHub</a>
         </div>
       </div>
@@ -459,4 +789,5 @@
     </div>
   </footer>
 </body>
+
 </html>

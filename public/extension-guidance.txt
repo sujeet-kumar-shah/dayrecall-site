@@ -1,0 +1,23 @@
+DayRecall Chrome Extension Installation Guide
+
+After installing DayRecall, you need to install the Chrome extension for enhanced browser activity tracking.
+
+1. Click the "Install Chrome Extension" button on the DayRecall website
+   OR visit: https://chrome.google.com/webstore/detail/dayrecall-activity-tracker/gojiejeiophoceojkinnbkhgdpfojcbj
+
+2. Click "Add to Chrome" and then "Extend to all tabs" when prompted
+
+3. The extension will:
+   - Monitor active URLs and tab titles
+   - Track time spent on each website
+   - Send activity data to your local DayRecall desktop app
+   - Provide deeper analytics than the desktop app alone
+
+4. Once installed, open the DayRecall dashboard and click "Check Connection" 
+   to verify the extension is connected
+
+5. For best results, pin the extension to your Chrome toolbar
+
+Note: The desktop app can track active windows without the extension, but the Chrome extension
+provides detailed browser activity tracking including specific URLs, tab titles, and time
+spent per page (including SPA navigation like React, Vue, Angular apps).

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dayrecall.xyz/sitemap.xml
